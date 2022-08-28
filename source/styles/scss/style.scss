@@ -18,6 +18,7 @@
 
 .main{
     flex: 1 1 auto;
+    display: flex;
 }
 
 .container {
@@ -27,6 +28,8 @@
 }
 
 .form-search {
+   flex: 1 1 auto;
+   margin-bottom: 9%;
 
     &__textarea {
         resize: none;
@@ -39,29 +42,29 @@
     &__value{
         min-width: 100%;
         max-width: 100%;
-        min-height: 214px; 
-        max-height: 214px;
+        min-height: 30%; 
+        max-height: 30%;
     }
 
     &__result{
         min-width: 26%;
         max-width: 26%;
-        min-height: 418px; 
-        max-height: 418px;
+        min-height: 100%; 
+        max-height: 100%;
     }
 
     &__main{
         min-width: 72%;
         max-width: 72%;
-        min-height: 418px;
-        max-height: 418px;
+        min-height: 100%;
+        max-height: 100%;
     }
 
     &__container{
         display: flex;
         margin-bottom: 30px;
         justify-content: space-between;
-        height: 80%;
+        height: 70%;
     }
 
     &__btns {
@@ -97,7 +100,7 @@
 }
 
 .display-none {
-    display: none;
+    display: block;
 }
 .instruction-text {
 
