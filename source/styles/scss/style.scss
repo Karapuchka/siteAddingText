@@ -1,0 +1,116 @@
+@import 'nullstyle.scss';
+
+@import url(https://fonts.googleapis.com/css?family=Homenaje:regular);
+
+.wrapper{
+    min-height: 100vh;
+    min-width: 100%;
+    display: flex;
+    font: normal 400 36px 'Homenaje';
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper-title {
+    font-size: 36px;
+    font-weight: 277px;
+}
+
+.main{
+    flex: 1 1 auto;
+}
+
+.container {
+    width: 85%;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-search {
+
+    &__textarea {
+        resize: none;
+        border: 1px solid #808080;
+        border-radius: 20px;
+        padding: 30px;
+        font-size: inherit;
+    }
+
+    &__value{
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 214px; 
+        max-height: 214px;
+    }
+
+    &__result{
+        min-width: 26%;
+        max-width: 26%;
+        min-height: 418px; 
+        max-height: 418px;
+    }
+
+    &__main{
+        min-width: 72%;
+        max-width: 72%;
+        min-height: 418px;
+        max-height: 418px;
+    }
+
+    &__container{
+        display: flex;
+        margin-bottom: 30px;
+        justify-content: space-between;
+        height: 80%;
+    }
+
+    &__btns {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    &__btn {
+        border: 1px solid #808080;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 36px;
+        height: 53px;
+        width: 176px;
+        transition: background-color .7s ease;
+        background-color: transparent;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &__btn:hover{
+        background-color: #71AAFF;
+        transition: background-color .7s ease;
+    }
+
+    &__btn:first-child{
+        margin-right: 26px;
+    }
+}
+
+.display-none {
+    display: none;
+}
+.instruction-text {
+
+}
+.instruction-btn {
+    text-decoration: underline;
+    user-select: none;
+    cursor: pointer;
+    color: #000;
+    transition: color .7s ease;
+}
+
+.instruction-btn:hover{
+    transition: color .7s ease;
+    color: #71AAFF;
+}
