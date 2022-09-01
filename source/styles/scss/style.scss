@@ -39,6 +39,17 @@
         font-size: inherit;
     }
 
+    &__textarea::-webkit-scrollbar{
+        background-color: transparent;
+        width: 7px;
+    }
+
+    &__textarea::-webkit-scrollbar-thumb{
+        background-color: #fff;
+        border: 1px solid gray;
+        border-radius: 20px;
+    }
+
     &__value{
         min-width: 100%;
         max-width: 100%;
@@ -83,15 +94,8 @@
         font-size: 36px;
         height: 53px;
         width: 176px;
-        transition: background-color .7s ease;
-        background-color: transparent;
         cursor: pointer;
         user-select: none;
-    }
-
-    &__btn:hover{
-        background-color: #71AAFF;
-        transition: background-color .7s ease;
     }
 
     &__btn:first-child{
