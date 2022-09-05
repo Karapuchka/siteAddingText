@@ -44,6 +44,7 @@ function scripts(){
         .pipe(concat('main.min.js'))
         .pipe(uglify())
         .pipe(dest('source/scripts'))
+        .pipe(browserSync.stream())
 }
 
 function build(){
