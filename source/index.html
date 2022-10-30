@@ -7,52 +7,177 @@
     <meta name="author" content="Karapuchka">
     <meta name="copyright" content="Artyom Kravets"><!-- Ссылка на макет: https://www.figma.com/file/yP3PMxJuhK0Q5QzNWkWgt3/Untitled?node-id=0%3A1 -->
     <link rel="stylesheet" href="styles/css/style.min.css">
-    <title>AT</title>
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
+    <title>Заметки</title>
 </head>
 <body>
     <div class="wrapper">
+        <header class="header">
 
-        <header class="container">
-            <h1 class="wrapper-title">Search for a word in text</h1>
+            <div class="container content-justify">
+
+                <div class="add-note"> <!-- Кнопка "Добавить" -->
+
+                   <div class="btn add-note__btn jsBtnAnimation no-active">
+                        <svg width="31" height="38" viewBox="0 0 31 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 0.5H20C22.4853 0.5 24.5 2.51472 24.5 5V28C24.5 30.4853 22.4853 32.5 20 32.5H5C2.51472 32.5 0.5 30.4853 0.5 28V5C0.5 2.51472 2.51472 0.5 5 0.5Z" fill="white" stroke="black"/>
+                            <line x1="3" y1="15.1979" x2="17" y2="15.1979" stroke="black"/>
+                            <line x1="3" y1="10.1979" x2="12" y2="10.1979" stroke="black"/>
+                            <line x1="3" y1="18.1979" x2="17" y2="18.1979" stroke="black"/>
+                            <line x1="3" y1="21.1979" x2="17" y2="21.1979" stroke="black"/>
+                            <circle cx="21.5" cy="28.5" r="9" fill="white" stroke="black"/>
+                            <line x1="21.5" y1="24" x2="21.5" y2="33" stroke="black"/>
+                            <line x1="26" y1="28.5" x2="17" y2="28.5" stroke="black"/>
+                        </svg>
+    
+                        <span class="btn__text">Добавить</span>   
+
+                   </div> 
+
+                   <div class="add-note__modal">
+                        <div class="add-note__modal__title">Новая запись</div>
+                        <input type="text" class="add-note__modal__input" placeholder="Название">
+                        <textarea class="add-note__modal__textarea" placeholder="Описание"></textarea>
+                        <div class="add-note__modal__btn jsBtnAnimation">Добавить</div>
+                   </div>
+                </div>
+
+                <div class="options content-justify">
+                    
+                    <div class="options__filter">  <!-- Кнопка "Фильтер" -->
+
+                        <div id="filter-btn" class="btn options__filter-btn content-justify jsBtnAnimation  no-active">
+                            <svg width="40" height="39" viewBox="0 0 40 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="4.37114e-08" y1="5.5" x2="25" y2="5.5" stroke="black"/>
+                                <line x1="4.37114e-08" y1="5.5" x2="25" y2="5.5" stroke="black"/>
+                                <line x1="35" y1="5.5" x2="40" y2="5.5" stroke="black"/>
+                                <circle cx="29.5" cy="5.5" r="5" stroke="black"/>
+                                <circle cx="12.5" cy="19.5" r="5" stroke="black"/>
+                                <circle cx="24.5" cy="33.5" r="5" stroke="black"/>
+                                <line y1="19.5" x2="7" y2="19.5" stroke="black"/>
+                                <line x1="18" y1="19.5" x2="40" y2="19.5" stroke="black"/>
+                                <path d="M30 33.5H40" stroke="black"/>
+                                <line y1="33.5" x2="19" y2="33.5" stroke="black"/>
+                            </svg>
+    
+                            <div class="btn__text">
+                                <p class="options__filter-title">Фильтр</p>
+                                
+                            </div>
+                        </div>
+                            <!-- Модальное окно с фильтрем -->
+
+                        <div class="options__filter-modal">
+
+                            <div class="options__filter-modal__btn jsBtnAnimation" id="filter-modal-name">Название</div>
+                            <div class="options__filter-modal__btn jsBtnAnimation" id="filter-modal-date-add">Дата создания</div>
+                            <div class="options__filter-modal__btn jsBtnAnimation" id="filter-modal-date-edit">Дата изменения</div>
+
+                            <div class="content-justify">
+
+                                <div class="options__filter-modal__btn__arrow jsBtnAnimation" id="filter-modal-arrow-up">
+
+                                    <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.5 16V1M5.5 1L1 5M5.5 1L10 5" stroke="black"/>
+                                    </svg>   
+
+                                </div>
+
+                                <div class="options__filter-modal__btn__arrow options__filter-modal__btn__arrow--rotate jsBtnAnimation" id="filter-modal-arrow-down">
+
+                                    <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.5 16V1M5.5 1L1 5M5.5 1L10 5" stroke="black"/>
+                                    </svg>       
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Поиск -->
+                    <input type="text" class="options__seacrh" placeholder="Поиск..."></input>
+                </div>
+            </div>
         </header>
+        <main class="main">
+            <div class="main__slider container">
+                <div class="main__slider-item">
+                    <h1 class="note__title">Список заметок</h1>
+                </div>
+                <div class="main__slider-item"></div>
+            </div>
 
-        <main class="main container">
-            <form class="form-search" name="formSearch" action="#" method="post" enctype="multipart/form-data">
-                <div class="form-search__container">
-                    <textarea class="form-search__textarea form-search__main" name="formSearchMainText" placeholder="Main text"></textarea>
-                    <div class="form-search__textarea form-search__result"></div>
-                </div>
-                <textarea class="form-search__textarea form-search__value" name="formSearchTextToSearch" placeholder="Enter text to search"></textarea>
-                <div class="form-search__btns">
-                    <button id="formSearch__btn-search" class="form-search__btn">Search</button>
-                    <button id="formSearch__btn-change" class="form-search__btn">Сhange</button>
-                </div>
-            </form>
+            <!-- шаблон заметки -->
+            <template id="note-layout">
+                <li class="note-list__item">
+                    <div class="note-list__item__text note-list__item__content--big-item">
+                        <h4 class="note-list__item__title">Название</h4>
+                        <h6 class="note-list__item__subtitle">Описание</h6>
+                    </div>
+                    <div class="note-list__item__date">Дата изменения</div>
+                    <div class="note-list__item__btns">
+                        <div class="note__list__item__btns-edit">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="20.6919" y="0.707107" width="3.64982" height="21.2403" rx="1.5" transform="rotate(45 20.6919 0.707107)" stroke="black"/>
+                                <path d="M1.67031 21.6709L5.95488 14.914L8.84786 18.1359L1.67031 21.6709Z" fill="black"/>
+                                <line x1="4.96558" y1="21.5" x2="22.9656" y2="21.5" stroke="black"/>
+                            </svg>
+                        </div>
+                        <div class="note__list__item__btns-delete">
+                            <svg width="19" height="26" viewBox="0 0 19 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1.5" y="6.5" width="16" height="19" rx="1.5" stroke="black"/>
+                                <line x1="4.5" y1="11" x2="4.5" y2="21" stroke="black"/>
+                                <line x1="9.5" y1="11" x2="9.5" y2="21" stroke="black"/>
+                                <line x1="14.5" y1="11" x2="14.5" y2="21" stroke="black"/>
+                                <rect x="0.5" y="3.5" width="18" height="3" rx="0.5" stroke="black"/>
+                                <rect x="5.5" y="0.5" width="8" height="3" rx="0.5" stroke="black"/>
+                            </svg>                                
+                        </div>
+                    </div>
+                </li>
+            </template>
+
         </main>
+        <footer class="footer">
+            <div class="container content-justify">
+                <div class="count-note">Всего заметок: <span id="count-note__item">0</span></div>
+                <div class="footer__btns-position">
 
-        <footer class="container">
-            <span class="instruction-btn">How to use?</span>
+                    <div id="position-btn-line" class="footer__btns-position__item">
+                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="59" height="39" stroke="black"/>
+                            <line x1="7" y1="11.5" x2="24" y2="11.5" stroke="black"/>
+                            <line x1="7" y1="17.5" x2="24" y2="17.5" stroke="black"/>
+                            <line x1="7" y1="23.5" x2="24" y2="23.5" stroke="black"/>
+                            <line x1="7" y1="28.5" x2="24" y2="28.5" stroke="black"/>
+                            <line x1="36" y1="11.5" x2="53" y2="11.5" stroke="black"/>
+                            <line x1="36" y1="17.5" x2="53" y2="17.5" stroke="black"/>
+                            <line x1="36" y1="23.5" x2="53" y2="23.5" stroke="black"/>
+                            <line x1="36" y1="28.5" x2="53" y2="28.5" stroke="black"/>
+                        </svg>                                                  
+                    </div>
+
+                    <div id="position-btn-cube" class="footer__btns-position__item">
+                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="59" height="39" stroke="black"/>
+                            <rect x="11.5" y="8.5" width="9" height="9" rx="0.5" stroke="black"/>
+                            <rect x="11.5" y="22.5" width="9" height="9" rx="0.5" stroke="black"/>
+                            <rect x="25.5" y="8.5" width="9" height="9" rx="0.5" stroke="black"/>
+                            <rect x="25.5" y="22.5" width="9" height="9" rx="0.5" stroke="black"/>
+                            <rect x="39.5" y="8.5" width="9" height="9" rx="0.5" stroke="black"/>
+                            <rect x="39.5" y="22.5" width="9" height="9" rx="0.5" stroke="black"/>
+                        </svg>                            
+                    </div>
+
+                </div>
+            </div>
         </footer>
     </div>
 
-    <div class="modal-change">
-       <div class="modal-change__container">
-            <div class="modal-change__title">
-                <h2 class="modal-change__title-text">Confirm action</h2>
-            </div>
-            <form class="modal-change__content">
-                <input id="modal-change__input" type="text" class="modal-change__input" placeholder="Enter text">
-                <div class="modal-change__btns">
-                    <button id="modal-change__btn-confirm" class="modal-change__btn">Confirm</button>
-                    <button id="modal-change__btn-cancel"  class="modal-change__btn">Cancel</button>
-                </div>
-            </form>
-       </div>
-    </div>
+
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.5/mobile-detect.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
     <script src="scripts/main.min.js"></script>
 </body>
 </html>
-
-<!-- Доделать адаптив и сделать замену текста -->
