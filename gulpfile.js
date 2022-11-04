@@ -38,9 +38,10 @@ function styles(){
 }
 
 function scripts(){
-    return src([               
-        'source/scripts/main.js'
-    ])
+    return src([
+        'source/scripts/main.js',
+
+])
         .pipe(concat('main.min.js'))
         .pipe(uglify())
         .pipe(dest('source/scripts'))

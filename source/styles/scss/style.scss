@@ -183,25 +183,19 @@
 
 .main {
     flex: 1 1 auto;
-}
 
-.main__slider {
-    width: 100%;
-    height: 100%;
-    overflow-y: hidden;
-}
+    &__slider {
+        width: 100%;
+        height: 100%;
+        overflow-y: hidden;
 
-.main__slider-item {
-    padding: 20px 0;
-    background-color: #7E7E7E;
-    width: 100%;
-    height: 100%;
+        &-item {
+            padding: 20px 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
-
-.main__slider-item:nth-child(odd) {
-    background-color: #7E7E7E;
-}
-
 
 .note__title{
     font-weight: 600;
@@ -209,6 +203,63 @@
     text-decoration-line: underline;
     text-align: center;
     user-select: none;
+    margin-bottom: 27px;
+}
+
+.note-list{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 48%;
+        border: 1px solid black;
+        border-radius: 20px;
+        margin: 0 10px 20px 0;
+        padding: 16px 0 18px 16px;
+    
+        &__text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1 1 auto  ;
+        }
+    
+        &__title {
+            font-weight: 500;
+            font-size: 22px;
+        }
+    
+        &__subtitle {
+            font-size: 22px;
+        }
+    
+        &__date {
+            font-size: 14px;
+            margin-right: 20px;
+        }
+    
+        &__btns {
+            display: flex;
+            align-items: center;
+    
+            &__btn{
+                border: 1px solid black;
+                border-radius: 50%;
+                width: 52px;
+                height: 52px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 30px;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 .footer {
@@ -225,10 +276,22 @@
             background-color: #ffffff;
             padding: 2px;
             margin-right: 10px;
+            width: 40px;
+            height: 30px
         }
     }
 }
 
 .count-note {
     font-size: 22px;
+}
+
+#position-btn-cube{
+    background: url('../../images/iconBtn/iconPositionCube.svg') no-repeat center center;
+    background-size: 100%;
+}
+
+#position-btn-line{
+    background: url('../../images/iconBtn/iconPositionLine.svg') no-repeat center center;
+    background-size: 100%;
 }

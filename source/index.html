@@ -33,13 +33,14 @@
                         <span class="btn__text">Добавить</span>   
 
                    </div> 
-
-                   <div class="add-note__modal">
+                   
+                   <!-- Модальное окно добавления заметки -->
+                   <form name="addNote" class="add-note__modal">
                         <div class="add-note__modal__title">Новая запись</div>
-                        <input type="text" class="add-note__modal__input" placeholder="Название">
-                        <textarea class="add-note__modal__textarea" placeholder="Описание"></textarea>
-                        <div class="add-note__modal__btn jsBtnAnimation">Добавить</div>
-                   </div>
+                        <input name="addNoteTitle" type="text" class="add-note__modal__input" placeholder="Название">
+                        <textarea name="addNoteSubTitle" class="add-note__modal__textarea" placeholder="Описание"></textarea>
+                        <div name="addNoteBtn" class="add-note__modal__btn jsBtnAnimation">Добавить</div>
+                   </form>
                 </div>
 
                 <div class="options content-justify">
@@ -103,34 +104,35 @@
             <div class="main__slider container">
                 <div class="main__slider-item">
                     <h1 class="note__title">Список заметок</h1>
+                    <ul class="note-list"></ul>
                 </div>
                 <div class="main__slider-item"></div>
             </div>
 
-            <!-- шаблон заметки -->
+            <!-- Шаблон заметки -->
             <template id="note-layout">
                 <li class="note-list__item">
-                    <div class="note-list__item__text note-list__item__content--big-item">
+                    <div class="note-list__item__text">
                         <h4 class="note-list__item__title">Название</h4>
                         <h6 class="note-list__item__subtitle">Описание</h6>
                     </div>
                     <div class="note-list__item__date">Дата изменения</div>
                     <div class="note-list__item__btns">
-                        <div class="note__list__item__btns-edit">
+                        <div class="note-list__item__btns__btn note__list__item__btns-edit">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="20.6919" y="0.707107" width="3.64982" height="21.2403" rx="1.5" transform="rotate(45 20.6919 0.707107)" stroke="black"/>
+                                <rect x="20.6919"  y="0.707107" width="3.64982" height="21.2403" rx="1.5"  transform="rotate(45 20.6919 0.707107)" stroke="black"/>
                                 <path d="M1.67031 21.6709L5.95488 14.914L8.84786 18.1359L1.67031 21.6709Z" fill="black"/>
-                                <line x1="4.96558" y1="21.5" x2="22.9656" y2="21.5" stroke="black"/>
+                                <line x1="4.96558" y1="21.5"    x2="22.9656"    y2="21.5"        stroke="black"/>
                             </svg>
                         </div>
-                        <div class="note__list__item__btns-delete">
+                        <div class="note-list__item__btns__btn note__list__item__btns-delete">
                             <svg width="19" height="26" viewBox="0 0 19 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="1.5" y="6.5" width="16" height="19" rx="1.5" stroke="black"/>
-                                <line x1="4.5" y1="11" x2="4.5" y2="21" stroke="black"/>
-                                <line x1="9.5" y1="11" x2="9.5" y2="21" stroke="black"/>
-                                <line x1="14.5" y1="11" x2="14.5" y2="21" stroke="black"/>
-                                <rect x="0.5" y="3.5" width="18" height="3" rx="0.5" stroke="black"/>
-                                <rect x="5.5" y="0.5" width="8" height="3" rx="0.5" stroke="black"/>
+                                <rect x="1.5"   y="6.5" width="16" height="19" rx="1.5" stroke="black"/>
+                                <line x1="4.5"  y1="11" x2="4.5"   y2="21"     stroke="black"/>
+                                <line x1="9.5"  y1="11" x2="9.5"   y2="21"     stroke="black"/>
+                                <line x1="14.5" y1="11" x2="14.5"  y2="21"     stroke="black"/>
+                                <rect x="0.5"   y="3.5" width="18" height="3"  rx="0.5" stroke="black"/>
+                                <rect x="5.5"   y="0.5" width="8"  height="3"  rx="0.5" stroke="black"/>
                             </svg>                                
                         </div>
                     </div>
@@ -142,42 +144,19 @@
             <div class="container content-justify">
                 <div class="count-note">Всего заметок: <span id="count-note__item">0</span></div>
                 <div class="footer__btns-position">
-
-                    <div id="position-btn-line" class="footer__btns-position__item">
-                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.5" y="0.5" width="59" height="39" stroke="black"/>
-                            <line x1="7" y1="11.5" x2="24" y2="11.5" stroke="black"/>
-                            <line x1="7" y1="17.5" x2="24" y2="17.5" stroke="black"/>
-                            <line x1="7" y1="23.5" x2="24" y2="23.5" stroke="black"/>
-                            <line x1="7" y1="28.5" x2="24" y2="28.5" stroke="black"/>
-                            <line x1="36" y1="11.5" x2="53" y2="11.5" stroke="black"/>
-                            <line x1="36" y1="17.5" x2="53" y2="17.5" stroke="black"/>
-                            <line x1="36" y1="23.5" x2="53" y2="23.5" stroke="black"/>
-                            <line x1="36" y1="28.5" x2="53" y2="28.5" stroke="black"/>
-                        </svg>                                                  
-                    </div>
-
-                    <div id="position-btn-cube" class="footer__btns-position__item">
-                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.5" y="0.5" width="59" height="39" stroke="black"/>
-                            <rect x="11.5" y="8.5" width="9" height="9" rx="0.5" stroke="black"/>
-                            <rect x="11.5" y="22.5" width="9" height="9" rx="0.5" stroke="black"/>
-                            <rect x="25.5" y="8.5" width="9" height="9" rx="0.5" stroke="black"/>
-                            <rect x="25.5" y="22.5" width="9" height="9" rx="0.5" stroke="black"/>
-                            <rect x="39.5" y="8.5" width="9" height="9" rx="0.5" stroke="black"/>
-                            <rect x="39.5" y="22.5" width="9" height="9" rx="0.5" stroke="black"/>
-                        </svg>                            
-                    </div>
-
+                    <div id="position-btn-line" class="footer__btns-position__item"></div>
+                    <div id="position-btn-cube" class="footer__btns-position__item"></div>
                 </div>
             </div>
         </footer>
+
+       
     </div>
 
 
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.5/mobile-detect.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
-    <script src="scripts/main.min.js"></script>
+    <script type="module" src="scripts/main.min.js" ></script>
 </body>
 </html>
