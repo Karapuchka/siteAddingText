@@ -159,12 +159,26 @@
                     align-items: center;
                     cursor: pointer;
                     justify-content: center;
+                    background-color: #ffffff;
                 }
 
-                &__arrow--rotate{
+                &__arrow--up{
+                    background: url('../../images/iconBtn/iconArrow.svg') no-repeat center center;
+                }
+
+                &__arrow--down{
+                    background: url('../../images/iconBtn/iconArrow.svg') no-repeat center center;
                     transform: rotate(180deg);
                     margin-left: 10px;
                 }
+
+                &__arrow--active{
+                    background-color: #a8a6a6;
+                }
+            }
+
+            &__radio-btn{
+               display: none;
             }
         }
     }

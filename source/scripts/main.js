@@ -19,18 +19,21 @@ if(detect.mobile() == null){
 
         if(event.target.closest('.jsBtnAnimation')){
 
-            gsap.to(event.target.closest('.jsBtnAnimation'), {
-                duration: .7, 
-                background: '#d8d7d7',
-            });
-            
+            if(!event.target.closest('.options__filter-modal__btn__arrow--active')){
+
+                gsap.to(event.target.closest('.jsBtnAnimation'), {
+                    duration: .7, 
+                    backgroundColor: '#d8d7d7',
+                });
+
+            }
         }
 
         if(event.target.closest('.note-list__item__btns__btn')){
 
             gsap.to(event.target.closest('.note-list__item__btns__btn'), {
                 duration: .7,
-                background: '#d8d7d7',
+                backgroundColor: '#d8d7d7',
             });
         }
 
@@ -40,18 +43,21 @@ if(detect.mobile() == null){
 
         if(event.target.closest('.jsBtnAnimation')){
 
-            gsap.to(event.target.closest('.jsBtnAnimation'), {
-                duration: .7, 
-                background: '#ffffff',
-            });
+            if(!event.target.closest('.options__filter-modal__btn__arrow--active')){
 
+                gsap.to(event.target.closest('.jsBtnAnimation'), {
+                    duration: .7, 
+                    backgroundColor: '#ffffff',
+                });
+    
+            }
         }
 
         if(event.target.closest('.note-list__item__btns__btn')){
 
             gsap.to(event.target.closest('.note-list__item__btns__btn'), {
                 duration: .7, 
-                background: '#ffffff',
+                backgroundColor: '#ffffff',
             });
 
         }
@@ -66,14 +72,14 @@ if(detect.mobile() == null){
 
             gsap.to(event.target.closest('.jsBtnAnimation'), {
                 duration: .7, 
-                background: '#fff',
+                backgroundColor: '#fff',
             });
         
             setTimeout(()=>{
         
                 gsap.to(event.target.closest('.jsBtnAnimation'), {
                     duration: .7, 
-                    background: '#ffffff',
+                    backgroundColor: '#ffffff',
                 })
         
             }, 1800);
@@ -83,14 +89,14 @@ if(detect.mobile() == null){
             
             gsap.to(event.target.closest('.note-list__item__btns__btn'), {
                 duration: .7, 
-                background: '#fff',
+                backgroundColor: '#fff',
             });
         
             setTimeout(()=>{
         
                 gsap.to(event.target.closest('.note-list__item__btns__btn'), {
                     duration: .7, 
-                    background: '#ffffff',
+                    backgroundColor: '#ffffff',
                 })
         
             }, 1800);
@@ -180,51 +186,94 @@ modalAddNote.addEventListener('click', (event)=>{
 
 //Работа с фильтрами
 modalFilter.addEventListener('click', (event)=>{
+
+    //Анимация для radion btn
+    if(event.target.closest('.options__filter-modal__btn__arrow')){
+        
+        if(event.target.classList.contains('options__filter-modal__btn__arrow--up')){
+
+            event.target.classList.add('options__filter-modal__btn__arrow--active');
+
+            document.querySelector('#arrowUp').setAttribute('checked', 'checked');
+            document.querySelector('#arrowDown').removeAttribute('checked');
+
+            document.querySelector('.options__filter-modal__btn__arrow--down').classList.remove('options__filter-modal__btn__arrow--active');
+            document.querySelector('.options__filter-modal__btn__arrow--down').style.backgroundColor = '#fff';
+        
+        }
+
+        if(event.target.classList.contains('options__filter-modal__btn__arrow--down')){
+
+            event.target.classList.add('options__filter-modal__btn__arrow--active');
+
+            document.querySelector('#arrowDown').setAttribute('checked', 'checked')
+            document.querySelector('#arrowUp').removeAttribute('checked');
+            
+            document.querySelector('.options__filter-modal__btn__arrow--up').classList.remove('options__filter-modal__btn__arrow--active');
+            document.querySelector('.options__filter-modal__btn__arrow--up').style.backgroundColor = '#fff';
+       
+        }
+    }
     
     //Сортировка по заголовку
     if(event.target.closest('#filter-modal-name')){
-    
-        let newCollectionHTML = arraySortName(countNotes, document.querySelector('.note-list').children);
-        
-        document.querySelector('.note-list').innerHTML = '';
 
-        for (let i = 0; i < newCollectionHTML.length; i++) {
-            document.querySelector('.note-list').appendChild(newCollectionHTML[i]);
+        if(document.querySelector('#arrowUp').getAttribute('checked')){
+
+            let newCollectionHTML = arraySortName(document.querySelector('.note-list').children, true);
+            
+            document.querySelector('.note-list').innerHTML = '';
+
+            for (let i = 0; i < newCollectionHTML.length; i++) {
+                document.querySelector('.note-list').appendChild(newCollectionHTML[i]);
+            }
+
         }
+
+        if(document.querySelector('#arrowDown').getAttribute('checked')){
+
+            let newCollectionHTML = arraySortName(document.querySelector('.note-list').children, false);
+            
+            document.querySelector('.note-list').innerHTML = '';
+
+            for (let i = 0; i < newCollectionHTML.length; i++) {
+                document.querySelector('.note-list').appendChild(newCollectionHTML[i]);
+            }
+        }
+    
+
     }
 
     //функция для сортировки по заголовку
-    function arraySortName(array, collectionHTML){
+    function arraySortName(collectionHTML, boolean){
         
-        let arrayName = [];
-        array.map(item =>{
-            arrayName.push(item.title.toUpperCase())
-        });
-        arrayName = arrayName.sort();
-
         let newCollectionHTML = [];
+        let arrayTitle = [];
 
-        for (let i = 0; i < arrayName.length; i++) {
-            for(let j = 0; j < array.length; j++){
-                if(array[j].title.toUpperCase() == arrayName[i]){
-                    newCollectionHTML.push(collectionHTML[j]);
+        for(let i = 0; i < collectionHTML.length; i++){
+            arrayTitle.push(collectionHTML[i].children[0].innerText.toUpperCase());
+        }
+
+        arrayTitle.sort()
+
+        for (let i = 0; i <= collectionHTML.length - 1; i++) {
+            for (let j = 0; j <= arrayTitle.length - 1; j++) {
+                if(arrayTitle[i] === collectionHTML[j].children[0].innerText.toUpperCase()){
+
+                    if(boolean){
+
+                        newCollectionHTML.unshift(collectionHTML[j])
+
+                    } else{
+
+                        newCollectionHTML.push(collectionHTML[j])
+
+                    }
                 }
-            }
+              }
         }
 
         return newCollectionHTML;
-        /* 
-        
-        
-        
-        
-            ДОДЕЛАТЬ ФИЛЬТРАЦИЯ!!!
-            1. ДОБАВИТЬ ВОЗМОЖНОСТЬ ФИЛЬТРОВАТЬ В ОБРАТНОМ ПОРЯДКЕ
-            2. ДОБАВИТЬ ДРУГИЕ ФИЛЬТРАЦИИ
-        
-        
-        
-        */
     }
 
 });
