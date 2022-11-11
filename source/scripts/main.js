@@ -5,7 +5,8 @@ const detect = new MobileDetect(window.navigator.userAgent);
 const modalAddNote = document.forms.addNote;
 
 const modalFilter  = document.querySelector('.options__filter-modal');
-const addNoteBtn   = document.querySelector('.add-note__btn')
+const searchInput  = document.querySelector('.options__seacrh');
+const addNoteBtn   = document.querySelector('.add-note__btn');
 const noteList     = document.querySelector('.note-list');
 
 const countNoteFooter = document.getElementById('count-note__item');
@@ -177,6 +178,29 @@ window.addEventListener('click', (event)=>{
         
         console.log('edit');
 
+        let title = event.target.closest('.note__list__item__btns-edit').parentNode.parentNode.children[0].children[0].innerText; //Получаем закаголовок элемента
+        
+        if (searchItemToStorage.getItemName(title) == title) {
+
+            for (let i = 0; i < noteList.children.length; i++) {
+
+                if(noteList.children[i].children[0].innerText == title){
+
+                    let date = new Note;
+
+                    let noteEdit = localStorage.getItem(title);
+
+                    noteEdit = JSON.parse(noteEdit);
+
+                    noteEdit.date.dateEdit = date.setDate();
+
+                    localStorage.setItem(title, JSON.stringify(noteEdit));
+
+                    noteList.children[i].children[1].innerText = noteEdit.date.dateEdit;
+
+                }                
+            }
+        }
     };
 
 });
@@ -274,59 +298,131 @@ modalFilter.addEventListener('click', (event)=>{
 
         if(document.querySelector('#arrowUp').getAttribute('checked')){
 
-            let newCollectionHTML = arraySortName(document.querySelector('.note-list').children, true);
+            let newCollectionHTML = sortNotesList(noteList.children, true,'title');
             
-            document.querySelector('.note-list').innerHTML = '';
+            noteList.innerHTML = '';
 
             for (let i = 0; i < newCollectionHTML.length; i++) {
-                document.querySelector('.note-list').appendChild(newCollectionHTML[i]);
+                noteList.appendChild(newCollectionHTML[i]);
             }
 
         }
 
         if(document.querySelector('#arrowDown').getAttribute('checked')){
 
-            let newCollectionHTML = arraySortName(document.querySelector('.note-list').children, false);
+            let newCollectionHTML = sortNotesList(noteList.children, false, 'title');
             
-            document.querySelector('.note-list').innerHTML = '';
+            noteList.innerHTML = '';
 
             for (let i = 0; i < newCollectionHTML.length; i++) {
-                document.querySelector('.note-list').appendChild(newCollectionHTML[i]);
+                 noteList.appendChild(newCollectionHTML[i]);
             }
         }
     
 
     }
 
-    //функция для сортировки по заголовку
-    function arraySortName(collectionHTML, boolean){
-        
-        let newCollectionHTML = [];
-        let arrayTitle = [];
+    if(event.target.closest('#filter-modal-date-edit')){
+     
+        if(document.querySelector('#arrowUp').getAttribute('checked')){
 
-        for(let i = 0; i < collectionHTML.length; i++){
-            arrayTitle.push(collectionHTML[i].children[0].innerText.toUpperCase());
+            let newCollectionHTML = sortNotesList(noteList.children, true,'date');
+            
+            noteList.innerHTML = '';
+
+            for (let i = 0; i < newCollectionHTML.length; i++) {
+                noteList.appendChild(newCollectionHTML[i]);
+            }
+
         }
 
-        arrayTitle.sort();
+        if(document.querySelector('#arrowDown').getAttribute('checked')){
 
-        for (let i = 0; i <= collectionHTML.length - 1; i++) {
-            for (let j = 0; j <= arrayTitle.length - 1; j++) {
-                if(arrayTitle[i] === collectionHTML[j].children[0].innerText.toUpperCase()){
+            let newCollectionHTML = sortNotesList(noteList.children, false, 'date');
+            
+            noteList.innerHTML = '';
 
-                    if(boolean){
+            for (let i = 0; i < newCollectionHTML.length; i++) {
+                noteList.appendChild(newCollectionHTML[i]);
+            }
+        }
+    }
 
-                        newCollectionHTML.unshift(collectionHTML[j])
+    //функция для сортировки по заголовку
+    function sortNotesList(collectionHTML, boolean, filter){
 
-                    } 
+        /* 
+            collectionHTML - коллекция li для сортировки
+            boolean - значение, необходимое для определения, как имеено будет происходит сортировк: по восрастанию или по убыванию
+            filter - значение, определяющее, какой иммено фильтр нужен (по заголовку или по дате)
+        */
+        
+        let newCollectionHTML = []; //Новая, отсортированная коллекция
+        let items = []; //Массим, на основе которого будет сортироваться коллекция
 
-                    if(!boolean){
+        if(filter == 'title'){
 
-                        newCollectionHTML.push(collectionHTML[j])
+            for(let i = 0; i < collectionHTML.length; i++){
 
+                items.push(collectionHTML[i].children[0].innerText.toUpperCase());
+            
+            }
+
+            items.sort();
+
+            for (let i = 0; i <= collectionHTML.length - 1; i++) {
+
+                for (let j = 0; j <= items.length - 1; j++) {
+
+                    if(items[i] === collectionHTML[j].children[0].innerText.toUpperCase()){
+
+                        if(boolean){
+
+                            newCollectionHTML.unshift(collectionHTML[j])
+
+                        } 
+
+                        if(!boolean){
+
+                            newCollectionHTML.push(collectionHTML[j])
+
+                        }
                     }
                 }
             }
+        }
+
+        if(filter == 'date'){
+
+            for (let i = 0; i < collectionHTML.length; i++) {
+                
+                items.push(collectionHTML[i].children[1].innerText);
+            
+            }
+
+            items.sort();
+
+            for (let i = 0; i <= collectionHTML.length - 1; i++) {
+
+                for (let j = 0; j <= items.length - 1; j++) {
+
+                    if(items[i] === collectionHTML[j].children[1].innerText){
+
+                        if(boolean){
+
+                            newCollectionHTML.unshift(collectionHTML[j])
+
+                        } 
+
+                        if(!boolean){
+
+                            newCollectionHTML.push(collectionHTML[j])
+
+                        }
+                    }
+                }
+            }
+
         }
 
         return newCollectionHTML;
@@ -394,30 +490,41 @@ function modalClose(modal, id){
 };
 
 class Note{
-    constructor(title, subtitle, dateAdd, dateEdit){
+    constructor(title, subtitle){
         this.title = title;
         this.subtitle = subtitle;
-        this.dateAdd = dateAdd;
-        this.dateEdit = dateEdit;
-    }
+    };
 
     content = {
         element: '',
     };
 
-    addContent(item) {
-        this.content.element = `${item}`;
-    }
+    date = {
+        dateAdd: '',
+        dateEdit: '',
+    };
 
-    deleteContent(){
+    setDate() {
+        let dateNote = new Date();
+        return `${dateNote.getDate()}.${dateNote.getMonth() + 1}.${dateNote.getFullYear()} ${dateNote.getHours()}:${dateNote.getMinutes()}:${dateNote.getSeconds()}`;
+    };
+
+    setContent(item) {
+        this.content.element = `${item}`;
+    };
+
+    removeContent(){
         this.content.element = '';
-    }
+    };
 }
 
 //Создание нового объекта на основе класса Note
 function addNoteToStorage(template, block, title, subtitle){
 
-    let newNotes = new Note(`${title}`, `${subtitle}`, 'dateAdd', 'dateEdit');
+    let newNotes = new Note(`${title}`, `${subtitle}`);
+
+    newNotes.date.dateAdd  = newNotes.setDate();
+    newNotes.date.dateEdit = newNotes.date.dateAdd;
 
     localStorage.setItem(newNotes.title, JSON.stringify(newNotes));
 
@@ -429,7 +536,7 @@ function newNoteToDOM(note, template, block){
 
     template.content.querySelector('.note-list__item__subtitle').textContent = note.subtitle;
     template.content.querySelector('.note-list__item__title').textContent    = note.title;
-    template.content.querySelector('.note-list__item__date').textContent     = note.dateEdit;
+    template.content.querySelector('.note-list__item__date').textContent     = note.date.dateEdit;
 
     let li = template.content.cloneNode(true); //копируем все содержимое template
 
@@ -480,3 +587,43 @@ let searchItemToStorage = {
         }
     }
 }
+
+//Поиск 
+
+/* searchInput.addEventListener('input', ()=>{
+    if(localStorage.getItem(searchInput.value)){
+
+        let item;
+
+        noteList.innerHTML = '';
+
+        for (let i = 0; i < notesArrayForSearch.length - 1; i++) {
+
+            if(notesArrayForSearch[i].children[0].children[0].innerText == searchInput.value){
+
+            }
+            
+        }
+
+        noteList.appendChild(item)
+
+    } else{
+
+        if(window.localStorage.length > 0){
+
+            for (let i = 0; i < window.localStorage.length; i++) {
+        
+             
+                let a = localStorage.getItem(localStorage.key(i));
+        
+                a =  JSON.parse(a);
+        
+                newNoteToDOM(a, templateNote, noteList);
+        
+                countNoteFooter.innerText = `${localStorage.length}`;
+            } 
+        
+           
+        }
+    }
+}) */
