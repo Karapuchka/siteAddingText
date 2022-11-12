@@ -4,14 +4,18 @@ const detect = new MobileDetect(window.navigator.userAgent);
 
 const modalAddNote = document.forms.addNote;
 
-const modalFilter  = document.querySelector('.options__filter-modal');
-const searchInput  = document.querySelector('.options__seacrh');
-const addNoteBtn   = document.querySelector('.add-note__btn');
-const noteList     = document.querySelector('.note-list');
+const modalFilter = document.querySelector('.options__filter-modal');
+const searchInput = document.querySelector('.options__seacrh');
+const addNoteBtn  = document.querySelector('.add-note__btn');
+const noteList    = document.querySelector('.note-list');
+const footer      = document.querySelector('.footer');
 
-const countNoteFooter = document.getElementById('count-note__item');
-const templateNote    = document.getElementById('note-layout')
-const filterBtn       = document.getElementById('filter-btn');
+const templateNoteBlock = document.getElementById('note-layout-block');
+const templateNoteLine  = document.getElementById('note-layout-line');
+const countNoteFooter   = document.getElementById('count-note__item');
+const positionBlock     = document.getElementById('position-btn-block');
+const positionLine      = document.getElementById('position-btn-line');
+const filterBtn         = document.getElementById('filter-btn');
 
 //Вывод содержимого localStorage, если оно есть
 if(window.localStorage.length > 0){
@@ -23,7 +27,25 @@ if(window.localStorage.length > 0){
 
         a =  JSON.parse(a);
 
-        newNoteToDOM(a, templateNote, noteList);
+        if(positionLine.classList.contains('active')){
+
+            newNoteToDOM(a, templateNoteLine, noteList);
+
+
+            gsap.to(positionLine, {
+                backgroundColor: '#7E7E7E'
+            });
+
+        } else {
+
+            newNoteToDOM(a, templateNoteBlock, noteList);
+
+
+            gsap.to(positionBlock, {
+                backgroundColor: '#7E7E7E'
+            });
+
+        }
 
         countNoteFooter.innerText = `${localStorage.length}`;
     } 
@@ -154,14 +176,22 @@ window.addEventListener('click', (event)=>{
     //Работа с кнопка "удалить" и "изменить" заметки
     if(event.target.closest('.note__list__item__btns-delete')){
 
-        let title = event.target.closest('.note__list__item__btns-delete').parentNode.parentNode.children[0].children[0].innerText; //Получаем закаголовок элемента
-        
+        let title;
+
+        if(positionLine.classList.contains('active')){
+
+            title = event.target.closest('.note__list__item__btns-delete').parentNode.parentNode.children[0].children[0].innerText; //Получаем закаголовок элемента
+
+        } else {
+
+            title = event.target.closest('.note__list__item__btns-delete').parentNode.parentNode.parentNode.children[0].children[0].innerText; //Получаем закаголовок элемента
+        }
+
         if (searchItemToStorage.getItemName(title) == title) {
 
             for (let i = 0; i < noteList.children.length; i++) {
 
-                if(noteList.children[i].children[0].innerText == title){
-
+                if(noteList.children[i].children[0].children[0].innerText == title){
                     noteList.children[i].remove();
 
                 }                
@@ -175,10 +205,16 @@ window.addEventListener('click', (event)=>{
     };
 
     if(event.target.closest('.note__list__item__btns-edit')){
+        let title;
         
-        console.log('edit');
+        if(positionLine.classList.contains('active')){
 
-        let title = event.target.closest('.note__list__item__btns-edit').parentNode.parentNode.children[0].children[0].innerText; //Получаем закаголовок элемента
+            title = event.target.closest('.note__list__item__btns-edit').parentNode.parentNode.children[0].children[0].innerText; //Получаем закаголовок элемента
+
+        } else {
+            
+            title = event.target.closest('.note__list__item__btns-edit').parentNode.parentNode.parentNode.children[0].children[0].innerText; //Получаем закаголовок элемента
+        }
         
         if (searchItemToStorage.getItemName(title) == title) {
 
@@ -195,8 +231,16 @@ window.addEventListener('click', (event)=>{
                     noteEdit.date.dateEdit = date.setDate();
 
                     localStorage.setItem(title, JSON.stringify(noteEdit));
+          
+                    if(positionLine.classList.contains('active')){
 
-                    noteList.children[i].children[1].innerText = noteEdit.date.dateEdit;
+                        noteList.children[i].children[1].innerText = noteEdit.date.dateEdit;
+
+                    } else {
+                        
+                        noteList.children[i].children[1].children[0].innerText = noteEdit.date.dateEdit;
+
+                    }
 
                 }                
             }
@@ -212,16 +256,36 @@ modalAddNote.addEventListener('click', (event)=>{
 
             if(window.localStorage.length == 0){
 
-                addNoteToStorage(templateNote, noteList, modalAddNote.elements.addNoteTitle.value, modalAddNote.elements.addNoteSubTitle.value);
+                if(positionLine.classList.contains('active')){
+
+                        
+                    addNoteToStorage(templateNoteLine, noteList, modalAddNote.elements.addNoteTitle.value, modalAddNote.elements.addNoteSubTitle.value);
+
+                } else {
+
+
+                    addNoteToStorage(templateNoteBlock, noteList, modalAddNote.elements.addNoteTitle.value, modalAddNote.elements.addNoteSubTitle.value);
+
+                }
                     
-                modalAddNote.elements.addNoteTitle.value = '';
+                modalAddNote.elements.addNoteTitle.value    = '';
                 modalAddNote.elements.addNoteSubTitle.value = '';
 
             } else{
 
                 if(searchItemToStorage.getItem(modalAddNote.elements.addNoteTitle.value)){
 
-                    addNoteToStorage(templateNote, noteList, modalAddNote.elements.addNoteTitle.value, modalAddNote.elements.addNoteSubTitle.value);
+                    
+                    if(positionLine.classList.contains('active')){
+
+                        
+                        addNoteToStorage(templateNoteLine, noteList, modalAddNote.elements.addNoteTitle.value, modalAddNote.elements.addNoteSubTitle.value);
+
+                    } else {
+
+                        addNoteToStorage(templateNoteBlock, noteList, modalAddNote.elements.addNoteTitle.value, modalAddNote.elements.addNoteSubTitle.value);
+
+                    }
                     
                     countNoteFooter.innerText = `${localStorage.length}`;
                 
@@ -534,9 +598,9 @@ function addNoteToStorage(template, block, title, subtitle){
 //Добавление нового элемента в список
 function newNoteToDOM(note, template, block){
 
-    template.content.querySelector('.note-list__item__subtitle').textContent = note.subtitle;
-    template.content.querySelector('.note-list__item__title').textContent    = note.title;
-    template.content.querySelector('.note-list__item__date').textContent     = note.date.dateEdit;
+    template.content.querySelector('#note-list-item-subtitle').textContent = note.subtitle;
+    template.content.querySelector('#note-list-item-title').textContent    = note.title;
+    template.content.querySelector('#note-list-item-date').textContent     = note.date.dateEdit;
 
     let li = template.content.cloneNode(true); //копируем все содержимое template
 
@@ -589,25 +653,64 @@ let searchItemToStorage = {
 }
 
 //Поиск 
+searchInput.addEventListener('pointerdown', ()=>{
+    gsap.to('.options__seacrh__result', {
+        duration: .7,
+        ease: 'power4.out(1)',
+        display: 'block',
+        opacity: 1,
+    })
+});
 
-/* searchInput.addEventListener('input', ()=>{
+searchInput.addEventListener('input', ()=>{
     if(localStorage.getItem(searchInput.value)){
-
-        let item;
 
         noteList.innerHTML = '';
 
-        for (let i = 0; i < notesArrayForSearch.length - 1; i++) {
+        let a = localStorage.getItem(searchInput.value);
+        
+        a =  JSON.parse(a);
 
-            if(notesArrayForSearch[i].children[0].children[0].innerText == searchInput.value){
+        
+        if(positionLine.classList.contains('active')){
 
-            }
+            newNoteToDOM(a, templateNoteLine, noteList);
             
+            gsap.to(noteList, {
+                justifyContent: 'space-between',
+            });
+
+            gsap.to(positionLine, {
+                backgroundColor: '#7E7E7E'
+            });
+
+            gsap.to(positionBlock, {
+                backgroundColor: '#fff'
+            });
+
+        } else {
+
+            newNoteToDOM(a, templateNoteBlock, noteList);
+
+
+            gsap.to(noteList, {
+                justifyContent: 'flex-start',
+            });
+
+            gsap.to(positionBlock, {
+                backgroundColor: '#7E7E7E'
+            });
+
+            gsap.to(positionLine, {
+                backgroundColor: '#fff'
+            });
+
         }
 
-        noteList.appendChild(item)
+        countNoteFooter.innerText = `${localStorage.length}`;
 
     } else{
+        noteList.innerHTML = '';
 
         if(window.localStorage.length > 0){
 
@@ -617,13 +720,121 @@ let searchItemToStorage = {
                 let a = localStorage.getItem(localStorage.key(i));
         
                 a =  JSON.parse(a);
-        
-                newNoteToDOM(a, templateNote, noteList);
+                
+                if(positionLine.classList.contains('active')){
+
+                    newNoteToDOM(a, templateNoteLine, noteList);
+
+                    gsap.to(noteList, {
+                        justifyContent: 'space-between',
+                    });
+
+                    gsap.to(positionLine, {
+                        backgroundColor: '#7E7E7E'
+                    });
+
+                    gsap.to(positionBlock, {
+                        backgroundColor: '#fff'
+                    });
+
+                } else {
+
+                    newNoteToDOM(a, templateNoteBlock, noteList);
+
+                    gsap.to(noteList, {
+                        justifyContent: 'flex-start',
+                    });
+            
+                    gsap.to(positionBlock, {
+                        backgroundColor: '#7E7E7E'
+                    });
+            
+                    gsap.to(positionLine, {
+                        backgroundColor: '#fff'
+                    });
+
+                }
         
                 countNoteFooter.innerText = `${localStorage.length}`;
             } 
-        
-           
         }
     }
-}) */
+});
+
+//Анимация кнопок в footer
+footer.addEventListener('click', (event)=>{
+
+    if(event.target.closest('#position-btn-line')){
+
+        noteList.innerHTML = '';
+
+        for (let i = 0; i < window.localStorage.length; i++) {
+
+            let a = localStorage.getItem(localStorage.key(i));
+
+            a =  JSON.parse(a);
+
+            newNoteToDOM(a, templateNoteLine, noteList);
+
+        } 
+
+        notesStyles(positionLine, positionBlock);
+
+        gsap.to(noteList, {
+            justifyContent: 'space-between',
+        });
+
+        gsap.to(positionLine, {
+            backgroundColor: '#7E7E7E',
+        });
+
+        gsap.to(positionBlock, {
+            backgroundColor: '#fff',
+        });
+
+        countNoteFooter.innerText = `${localStorage.length}`;
+    };
+
+    if(event.target.closest('#position-btn-block')){
+
+        noteList.innerHTML = '';
+
+        for (let i = 0; i < window.localStorage.length; i++) {
+
+            let a = localStorage.getItem(localStorage.key(i));
+
+            a =  JSON.parse(a);
+
+            newNoteToDOM(a, templateNoteBlock, noteList);
+
+        } 
+
+        notesStyles(positionBlock, positionLine);
+
+        gsap.to(noteList, {
+            justifyContent: 'flex-start',
+        });
+
+        gsap.to(positionBlock, {
+            backgroundColor: '#7E7E7E'
+        });
+
+        gsap.to(positionLine, {
+            backgroundColor: '#fff'
+        });
+
+        countNoteFooter.innerText = `${localStorage.length}`;
+
+    };
+});
+
+function notesStyles(btnActive, btnNoActive){
+
+    if(!btnActive.classList.contains('active')){
+        
+        btnActive.classList.add('active');
+
+        btnNoActive.classList.remove('active');
+
+    }
+}
