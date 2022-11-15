@@ -598,9 +598,18 @@ function addNoteToStorage(template, block, title, subtitle){
 //Добавление нового элемента в список
 function newNoteToDOM(note, template, block){
 
-    template.content.querySelector('#note-list-item-subtitle').textContent = note.subtitle;
     template.content.querySelector('#note-list-item-title').textContent    = note.title;
     template.content.querySelector('#note-list-item-date').textContent     = note.date.dateEdit;
+
+    if(note.subtitle.length > 60){
+
+        template.content.querySelector('#note-list-item-subtitle').textContent = note.subtitle.substring(0, 60) + '...';
+
+    } else{
+
+        template.content.querySelector('#note-list-item-subtitle').textContent = note.subtitle;
+
+    }
 
     let li = template.content.cloneNode(true); //копируем все содержимое template
 
