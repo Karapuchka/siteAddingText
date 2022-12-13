@@ -1,8 +1,0 @@
-<svg width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M3 8V1M3 1L1 3.5M3 1L5 3.5M3 9L3 16M3 16L5 13.5M3 16L1 13.5" stroke="black"/>
-<line x1="7" y1="0.5" x2="21" y2="0.5" stroke="black"/>
-<line x1="7" y1="4.5" x2="21" y2="4.5" stroke="black"/>
-<line x1="7" y1="8.5" x2="21" y2="8.5" stroke="black"/>
-<path d="M7 13L21 13" stroke="black"/>
-<line x1="7" y1="16.5" x2="21" y2="16.5" stroke="black"/>
-</svg>
