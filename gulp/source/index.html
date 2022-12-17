@@ -5,11 +5,91 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.min.css">
-    <title>Document</title>
+    <title>Notebook</title>
 </head>
 <body>
-    <h1>Hello world!</h1>
-    
+    <div class="wrapper">
+
+        <div class="preloader">
+
+            <div class="preloader__content">
+
+                <div class="user-icon"></div>
+
+                <div class="greetings">Привет</div>
+
+            </div>
+
+        </div>
+
+        <!-- Панель управления -->
+        <header class="header">
+
+            <div class="header__control-panel">
+
+                <div class="header__control-panel__btns">
+
+                    <div class="group-element">
+
+                        <select name="fornFamily" id="forn-family">
+                            <option value="Arial">Arial</option>
+                            <option value="Times">Times New Roman</option>
+                            <option value="Calibri">Calibri</option>
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Roboto">Roboto</option>
+                            <option value="Signika">Signika</option>
+                        </select>
+
+                        <div class="btn" id="font-size">12</div>
+                    </div>
+
+                    <div class="group-element margin-childrean">
+                        <div class="btn" id="font-weight">Ж</div>
+                        <div class="btn" id="font-style">К</div>
+                        <div class="btn" id="font-decoration">Ч</div>
+                        <div class="btn" id="font-color">А</div>
+                    </div>
+
+                </div>
+
+                <div class="header__control-panel__label">Шрифт</div>
+
+            </div>
+
+            <div class="header__control-panel">
+
+                <div class="header__control-panel__btns">
+
+                    <div class="group-element margin-childrean">
+                        <div class="btn" id="paragraf-interval"></div>
+                        <div class="btn" id="paragraf-list-numbers"></div>
+                        <div class="btn" id="paragraf-list-markers"></div>
+                        <div class="btn" id="paragraf-align-left"></div>
+                        <div class="btn" id="paragraf-align-center"></div>
+                        <div class="btn" id="paragraf-align-right"></div>
+                        <div class="btn" id="paragraf-align-justify"></div>
+                    </div>
+
+                </div>
+                
+                <div class="header__control-panel__label">Абзац</div>
+
+            </div>
+
+        </header>
+
+        <!-- Рабоча панель -->
+        <main class="main">
+            <div class="main__container">
+                <div class="working-panel"></div>
+            </div>
+        </main>
+
+        <!-- Информация о документе -->
+        <footer class="footer"></footer> 
+    </div>    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script type="module" src="scripts/main.min.js"></script>
 </body>
 </html>
