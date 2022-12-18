@@ -3,8 +3,8 @@
 @import url(https://fonts.googleapis.com/css?family=Signika:300,regular,500,600,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic);
 
-$colorBorder: rgb(175, 170, 170); // Цвет границы header и footer
-$colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
+$colorBorder: #73A1FA; // Цвет границы header и footer
+$colorBackround: #9DBCFA; // Цвет фона header и footer
 
 *{
     font-family: 'Montserrat';
@@ -30,7 +30,39 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
 }
 
 #paragraf-interval{
-   
+    background-image: url('../images/iconLineHeight.svg');
+    background-size: 65%;
+}
+
+#paragraf-list-numbers{
+    background-image: url('../images/iconListNumber.svg');
+    background-size: 50%;
+}
+
+#paragraf-list-markers{
+    background-image: url('../images/iconListMarkers.svg');
+    background-size: 50%;
+}
+
+#paragraf-align-left{
+    background-image: url('../images/iconAlignLeft.svg');
+}
+
+#paragraf-align-center{
+    background-image: url('../images/iconAlignCenter.svg');
+}
+
+#paragraf-align-right{
+    background-image: url('../images/iconAlignRight.svg');
+}
+
+#paragraf-align-justify{
+    background-image: url('../images/iconAlignJustify.svg');
+}
+
+#btn-option{
+    background-image: url('../images/iconOpsions.svg');
+    background-size: 65%;
 }
 
 .preloader {
@@ -56,21 +88,29 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
 
 .user-icon {
     border-radius: 50%;
+
     width: 200px;
     height: 200px;
+
     margin-bottom: 50px;
+
     opacity: 0;
 }
 
 .greetings {
     position: relative;
     top: 20px;
+    
     text-align: center;
     font-size: 30px;
+
     background: #C2C2C2;
+
     width: 100%;
     height: 100%;
+
     user-select: none;
+
     opacity: 0;    
 }
 
@@ -88,6 +128,10 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
     margin-right: 0;
 }
 
+.margin-right-10{
+    margin-right: 10px;
+}
+
 .btn {
     background-color: #fff;
 
@@ -100,12 +144,24 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
     display: flex;
     align-items: center;
     justify-content: center;
-}  
+
+    user-select: none;
+
+    cursor: pointer;
+}
+
+.btn--paragraf{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #fff;
+}
 
 .wrapper {
     position: relative;
+
     min-height: 100%;
     min-width: 100%;
+
     display: flex;
     flex-direction: column;
 }
@@ -113,18 +169,24 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
 .header {
     height: 10vh;
     width: 100%;
+
     background: $colorBackround;
+
     border-bottom: 1px solid $colorBorder;
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
 
     &__control-panel {
         height: 100%;
+
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
         padding: 10px 15px 0 15px;
+
         border-right: 1px solid gray;
 
         &__btns {
@@ -132,10 +194,16 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
             align-items: center;
             justify-content: space-between;
         }
+
+        &__btns--item-center{
+            justify-content: center;
+        }
     
         &__label {
             font-size: 13px;
             text-align: center;
+
+            user-select: none;
         }
     }
 } 
@@ -144,8 +212,10 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
     flex: 1 1 auto;
     
     &__container {
+
         height: 90vh;
         width: 80%;
+
         margin: 0 auto;
         padding: 10px 0;
     }
@@ -154,23 +224,194 @@ $colorBackround: rgb(226, 225, 225); // Цвет фона header и footer
 .working-panel {
     width: 100%;
     height: 100%;
+
     box-shadow: 7px 8px 10px gray;
+
     border: 1px solid gray;
+
     padding: 20px;
 }
 
-.footer {
-    height: 2vh;
-    width: 100%;
-    border-top: 1px solid $colorBorder;
-    background: $colorBackround;
+.modal-option{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: none;
+    flex-direction: column;
+
+    width: 500px;
+    height: 600px;
+
+    border: 1px solid black;
+    border-radius: 50px;
+
+    background: #fff;
+
+    &__header {
+
+        width: 100%;
+        height: 100px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+
+        &-title {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+
+            font-weight: 700;
+            font-size: 28px;
+
+            padding: 10px 0;
+        }
+    
+        &__menu {
+
+            width: 100%;
+
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+    
+            &__item {
+
+                padding: 8px 0;
+
+                flex: 1 1 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                font-weight: 500;
+                font-size: 28px;
+
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+
+                user-select: none;
+
+                cursor: pointer;
+            }
+
+            &__item--active{
+                background-color: #D3D3D3;
+            }
+
+            &__item:hover{
+                background-color: #eceaea;
+            }
+
+            &__item:first-child{
+
+                border-right: 1px solid black;
+            }
+        } 
+    }
+
+    &__main {
+
+        overflow: hidden;
+
+        flex: 1 1 auto;
+        
+        padding: 30px 0;
+
+        &__slider-line {
+
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &__item {
+                
+                height: 100%;
+
+                flex: 1 1 45%;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+
+                &__content {
+                    
+                    width: 70%;
+
+                    display: flex;
+                    flex-direction: column;
+                    
+                    &__title {
+
+                        font-weight: 500;
+                        font-size: 20px;
+
+                        margin-bottom: 12px;
+
+                        user-select: none;
+                    }
+
+                    &__input {
+
+                        border: 1px solid black;
+                        border-radius: 10px;
+
+                        padding: 7px;
+                        margin-bottom: 10px;
+                    }
+
+                    &__btn{
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        background: #D9D9D9;
+
+                        border: 1px solid #000000;
+                        border-radius: 20px;
+
+                        padding: 10px;
+
+                        font-weight: 500;
+                        font-size: 20px;
+
+                        transition: all .7s ease;
+
+                        cursor: pointer;
+                    }
+
+                    &__btn:hover{
+
+                        background: #918f8f;
+
+                        transition: all .7s ease;
+                    }
+                }
+            }
+        }
+    }
 }
+
 
 @media screen and (max-width: 480px) {
     .main {
         
         &__container {
+
             width: 100%;
+
             padding: 0;
         }
     }
