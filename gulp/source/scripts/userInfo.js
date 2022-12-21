@@ -1,0 +1,5 @@
+const userOption = {
+    name: '',
+    welcomeText: '',
+
+}

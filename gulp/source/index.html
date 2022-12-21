@@ -107,7 +107,11 @@
         <main class="main">
 
             <div class="main__container">
-                <div class="working-panel"></div>
+                <div class="working-panel">
+                    <p class="paragraf" tabindex="1" id="p1">
+                        <span contenteditable="true" class="paragraf__text" id="s1"></span>
+                    </p>
+                </div>
             </div>
 
         </main>
@@ -137,15 +141,6 @@
                         </div>
 
                         <div class="modal-option__main__slider-line__item__content">
-                            <label for="user-nickname" class="modal-option__main__slider-line__item__content__title">Ник:</label>
-                            <input id="user-nickname" type="text" class="modal-option__main__slider-line__item__content__input" placeholder="Введите ник">
-                            
-                            <div class="modal-option__main__slider-line__item__content__group">
-                                <label for="checkbox-nickname"><input type="checkbox" id="checkbox-nickname">Разрешить использовать ник при входе</label>
-                            </div>
-                        </div>
-
-                        <div class="modal-option__main__slider-line__item__content">
                             <label for="user-welcome-text" class="modal-option__main__slider-line__item__content__title">Приветственная фраза:</label>
                             <input id="user-welcome-text" type="text" class="modal-option__main__slider-line__item__content__input" placeholder="Введите фразу">
                         </div>
@@ -170,11 +165,11 @@
 
                         <div class="modal-option__main__slider-line__item__content">
                             <label for="user-color" class="modal-option__main__slider-line__item__content__title">Цвет основной темы сайта</label>
-                            <div id="user-color" class="btn"></div>
+                            <input type="color" id="user-color">
                         </div>
 
                         <div class="modal-option__main__slider-line__item__content">
-                            <label for="border-element"><input type="checkbox" id="border-element">Разрешить использовать ник при входе</label>
+                            <label for="border-element"><input type="checkbox" id="border-element">Закругленные углы в дизайне</label>
                         </div>
 
                         <div class="modal-option__main__slider-line__item__content">

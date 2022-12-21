@@ -234,10 +234,12 @@ $colorBackround: #9DBCFA; // Цвет фона header и footer
 
 .modal-option{
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 52%;
+    left: 80%;
 
     transform: translate(-50%, -50%);
+
+    opacity: 0;
 
     display: none;
     flex-direction: column;
@@ -319,6 +321,7 @@ $colorBackround: #9DBCFA; // Цвет фона header и footer
     }
 
     &__main {
+        width: 500px;
 
         overflow: hidden;
 
@@ -327,6 +330,7 @@ $colorBackround: #9DBCFA; // Цвет фона header и footer
         padding: 30px 0;
 
         &__slider-line {
+            width: 1000px;
 
             height: 100%;
 

@@ -1,4 +1,3 @@
-'use strict'
 
 const modalOption = document.querySelector('.modal-option');
 
@@ -89,26 +88,33 @@ if(detect.mobile()){
 
         if(event.target.closest('#btn-option')){
 
-            gsap.to(modalOption, {
-                duration: .7,
-                display: 'flex',
-            })
+            //Открытие модального окна с настройками
+            if(modalOption.style.display == 'none' || modalOption.style.display == ''){
 
-            //Изменение размреа лини слайдера
+                gsap.to(modalOption, {
+                    duration: .1,
+                    display: 'flex',
+                })
+    
+                gsap.to(modalOption, {
+                    delay: .4,
+                    duration: .7,
+                    opacity: '1',
+                })
+            } else {
 
-            const modalOptionMain = document.querySelector('.modal-option__main');
-
-            gsap.to('.modal-option__main__slider-line', {
-                width: modalOptionMain.offsetWidth * 2 + 'px',
-            })
-
-
-            /* 
-            
-                Доделать слайдер, не отображается нормально
-
-            */
-
+                gsap.to(modalOption, {
+                    duration: .7,
+                    opacity: '0',
+        
+                })
+        
+                gsap.to(modalOption, {
+                    delay: .8,
+                    duration: .1,
+                    display: 'none',
+                })
+            }
         }
     }
 }
@@ -154,4 +160,60 @@ modalOption.onclick = (event)=>{
             x: '-50%',
         })
     }
+}
+let countP = 1;
+let countS = 1;
+let coutnIndex = 1;
+document.onkeydown = (event)=>{
+    if(event.code == 'Enter'){
+        event.preventDefault();
+
+        coutnIndex++;
+        countS++;
+        countP++;
+        document.querySelector('.working-panel').appendChild(p(`p${countP}`, coutnIndex));
+        document.getElementById(`p${countP}`).focus();
+        document.getElementById(`p${countP}`).appendChild(span(`s${countP}`, coutnIndex));
+    }
+
+    if(event.code == 'Space'){
+        event.preventDefault();
+
+        countS++;
+        coutnIndex++;
+        for(let i = 0; i < document.querySelector('.working-panel').length; i++){
+
+            if(document.querySelector('.working-panel').children[i].children.length != 0){
+
+                for(let j = 0; j < document.querySelector('.working-panel').children[i].children.length; j++){
+
+                    if(document.querySelector('.working-panel').children[i].children[j].hasFocus()){
+
+                        document.querySelector('.working-panel').children[i].children[j].appendChild(span(`s${countS}`, coutnIndex));
+                        document.getElementById(`s${countS}`).focus();
+                        break;
+                    }
+                    
+                }
+            }
+        }
+
+        document.querySelector('.working-panel').appendChild(span(`s${countP}`, coutnIndex));
+        document.getElementById(`s${countP}`).focus();
+    }
+}
+
+function p(count, countI){
+    let p = document.createElement('p');
+    p.setAttribute('id', count);
+    p.setAttribute('tabindex', countI);
+    return p;
+}
+
+function span(count, countI){
+    let span = document.createElement('span');
+    span.setAttribute('contenteditable', 'true');
+    span.setAttribute('id', count);
+    span.setAttribute('tabindex', countI);
+    return span;
 }
