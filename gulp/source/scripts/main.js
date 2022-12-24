@@ -161,59 +161,72 @@ modalOption.onclick = (event)=>{
         })
     }
 }
-let countP = 1;
-let countS = 1;
+
 let coutnIndex = 1;
-document.onkeydown = (event)=>{
+/* document.onkeydown = (event)=>{
     if(event.code == 'Enter'){
         event.preventDefault();
 
-        coutnIndex++;
-        countS++;
-        countP++;
-        document.querySelector('.working-panel').appendChild(p(`p${countP}`, coutnIndex));
-        document.getElementById(`p${countP}`).focus();
-        document.getElementById(`p${countP}`).appendChild(span(`s${countP}`, coutnIndex));
-    }
 
-    if(event.code == 'Space'){
-        event.preventDefault();
+        for (let i = 0; i < document.querySelector('.working-panel').children.length; i++) {
+           
+            if(document.querySelector('.working-panel').children[i].classList.contains('active')){
 
-        countS++;
-        coutnIndex++;
-        for(let i = 0; i < document.querySelector('.working-panel').length; i++){
+                document.querySelector('.working-panel').children[i].classList.remove('active');
 
-            if(document.querySelector('.working-panel').children[i].children.length != 0){
+                let array = newArray(i);
 
-                for(let j = 0; j < document.querySelector('.working-panel').children[i].children.length; j++){
+                document.querySelector('.working-panel').innerHTML = '';
 
-                    if(document.querySelector('.working-panel').children[i].children[j].hasFocus()){
+                for (let j = 0; j < array.length; j++) {
 
-                        document.querySelector('.working-panel').children[i].children[j].appendChild(span(`s${countS}`, coutnIndex));
-                        document.getElementById(`s${countS}`).focus();
-                        break;
-                    }
+                    document.querySelector('.working-panel').appendChild(array[i]);
                     
                 }
-            }
+            }   
         }
 
-        document.querySelector('.working-panel').appendChild(span(`s${countP}`, coutnIndex));
-        document.getElementById(`s${countP}`).focus();
+        document.getElementById(`${coutnIndex}`).focus();
     }
-}
+} */
 
-function p(count, countI){
+function paragraf(count){
+    coutnIndex++;
+
     let p = document.createElement('p');
+    
     p.setAttribute('id', count);
-    p.setAttribute('tabindex', countI);
+    p.setAttribute('tabindex', count);
+    p.setAttribute('contenteditable', 'true');
+
+    p.classList.add('paragraf');
+    p.classList.add('active');
+
     return p;
 }
 
-function span(count, countI){
-    let span = document.createElement('span');
-    span.setAttribute('contenteditable', 'true');
-    span.setAttribute('id', count);
-    span.setAttribute('tabindex', countI);
-    return span;
-}
+
+function newArray(index){
+    let firstArray = [];
+    let lastArray = [];
+
+    for (let i = 0; i < document.querySelector('.working-panel').children.length; i++) {
+        
+        if(index <= i ){
+
+            firstArray.push(document.querySelector('.working-panel').children[i]);
+        }
+        
+        if(index > i){
+
+            lastArray.push(document.querySelector('.working-panel').children[i]);
+        }
+
+    }
+
+    firstArray.push(paragraf(coutnIndex))
+
+    let newArray = firstArray.concat(lastArray);
+
+    return newArray;
+}   
