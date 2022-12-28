@@ -180,15 +180,6 @@ let idParagraf = 0; // порядковый номер активного пар
 
 workPanel.onclick = (event)=>{
 
-    if(workPanel.children.length == 0){
-
-        workPanel.classList.add('active')
-
-    } else {
-
-        workPanel.classList.remove('active')
-    }
-
     //Удаляет метку с активного элемента
     for (let i = 0; i < workPanel.children.length; i++) {
         
@@ -216,15 +207,6 @@ workPanel.onclick = (event)=>{
 
 workPanel.onkeydown = (event)=>{
     if(event.code == 'Enter'){
-console.dir(workPanel);
-console.log(workPanel.children.length);
-        if(workPanel.children.length == 2){
-
-            workPanel.children[1].classList.add('active');
-
-            workPanel.classList.remove('active')
-
-        } 
 
         for (let i = 0; i < workPanel.children.length; i++) {
         
