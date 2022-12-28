@@ -59,10 +59,8 @@ function styles(){
 
 function scripts(){
     return src([
-            'source/scripts/useStrict.js',  
             './node_modules/mobile-detect/mobile-detect.min.js',               
-            'source/scripts/main.js',  
-            'source/scripts/userInfo.js',  
+            'source/scripts/main.js', 
         ])
         .pipe(concat('main.min.js'))
         .pipe(uglify())

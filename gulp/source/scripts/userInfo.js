@@ -1,5 +1,0 @@
-const userOption = {
-    name: '',
-    welcomeText: '',
-
-}

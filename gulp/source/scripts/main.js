@@ -1,5 +1,19 @@
+'use strict';
+
+if(!localStorage.getItem('countParagraf')){
+    
+    localStorage.setItem('countParagraf', '1');
+
+}
+
+if(!localStorage.getItem('userIcon')){
+    
+    localStorage.setItem('userIcon', '../images/iconUser.svg');
+
+}
 
 const modalOption = document.querySelector('.modal-option');
+const workPanel   = document.querySelector('.working-panel .paragraf');
 
 gsap.to('.user-icon', {
     background: `url(${localStorage.getItem('userIcon')}) no-repeat center center`,
@@ -162,71 +176,74 @@ modalOption.onclick = (event)=>{
     }
 }
 
-let coutnIndex = 1;
-/* document.onkeydown = (event)=>{
-    if(event.code == 'Enter'){
-        event.preventDefault();
+let idParagraf = 0; // порядковый номер активного параграфа
 
+workPanel.onclick = (event)=>{
 
-        for (let i = 0; i < document.querySelector('.working-panel').children.length; i++) {
-           
-            if(document.querySelector('.working-panel').children[i].classList.contains('active')){
+    if(workPanel.children.length == 0){
 
-                document.querySelector('.working-panel').children[i].classList.remove('active');
+        workPanel.classList.add('active')
 
-                let array = newArray(i);
+    } else {
 
-                document.querySelector('.working-panel').innerHTML = '';
-
-                for (let j = 0; j < array.length; j++) {
-
-                    document.querySelector('.working-panel').appendChild(array[i]);
-                    
-                }
-            }   
-        }
-
-        document.getElementById(`${coutnIndex}`).focus();
+        workPanel.classList.remove('active')
     }
-} */
 
-function paragraf(count){
-    coutnIndex++;
+    //Удаляет метку с активного элемента
+    for (let i = 0; i < workPanel.children.length; i++) {
+        
+        if(workPanel.children[i].classList.contains('active')){
 
-    let p = document.createElement('p');
-    
-    p.setAttribute('id', count);
-    p.setAttribute('tabindex', count);
-    p.setAttribute('contenteditable', 'true');
+            workPanel.children[i].classList.remove('active');
+            break;
+        
+        }
+    }
 
-    p.classList.add('paragraf');
-    p.classList.add('active');
+    event.target.classList.add('active');
 
-    return p;
+    //Сохраняет номер активного элемента
+    for (let i = 0; i < workPanel.children.length; i++) {
+        
+        if(workPanel.children[i].classList.contains('active')){
+
+            idParagraf = i
+            break;
+            
+        }     
+    }
 }
 
+workPanel.onkeydown = (event)=>{
+    if(event.code == 'Enter'){
+console.dir(workPanel);
+console.log(workPanel.children.length);
+        if(workPanel.children.length == 2){
 
-function newArray(index){
-    let firstArray = [];
-    let lastArray = [];
+            workPanel.children[1].classList.add('active');
 
-    for (let i = 0; i < document.querySelector('.working-panel').children.length; i++) {
+            workPanel.classList.remove('active')
+
+        } 
+
+        for (let i = 0; i < workPanel.children.length; i++) {
         
-        if(index <= i ){
+            if(workPanel.children[i].classList.contains('active')){
 
-            firstArray.push(document.querySelector('.working-panel').children[i]);
-        }
-        
-        if(index > i){
+                workPanel.children[i].classList.remove('active');
 
-            lastArray.push(document.querySelector('.working-panel').children[i]);
+                setTimeout(()=>{
+
+                    workPanel.children[i + 1].classList.add('active');
+
+                }, 100)
+
+                //Сохраняет номер активного элемента
+                idParagraf = i;
+
+                break;
+            }
         }
 
     }
-
-    firstArray.push(paragraf(coutnIndex))
-
-    let newArray = firstArray.concat(lastArray);
-
-    return newArray;
-}   
+}
