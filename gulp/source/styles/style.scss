@@ -29,6 +29,10 @@ $colorBackround: #9DBCFA; // Цвет фона header и footer
     font-weight: 600;
 }
 
+#font-decoration{
+    text-decoration: underline;
+}
+
 #paragraf-interval{
     background-image: url('../images/iconLineHeight.svg');
     background-size: 65%;
@@ -67,18 +71,37 @@ $colorBackround: #9DBCFA; // Цвет фона header и footer
 
 .align-center{
     text-align: center;
+    transition: all .7s ease;
 }
 
 .align-left{
     text-align: left;
+    transition: all .7s ease;
 }
 
 .align-right{
     text-align: right;
+    transition: all .7s ease;
 }
 
 .align-justify{
     text-align: justify;
+    transition: all .7s ease;
+}
+
+.font-weight{
+    font-weight: 700;
+    transition: all .7s ease;
+}
+
+.font-style{
+    font-style: italic;
+    transition: all .7s ease;
+}
+
+.text-decoration{
+    text-decoration: underline;
+    transition: all .7s ease;
 }
 
 .preloader {

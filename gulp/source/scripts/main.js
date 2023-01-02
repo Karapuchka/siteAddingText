@@ -176,8 +176,6 @@ modalOption.onclick = (event)=>{
     }
 }
 
-let idParagraf = 0; // порядковый номер активного параграфа
-
 workPanel.onclick = (event)=>{
 
     //Удаляет метку с активного элемента
@@ -192,20 +190,21 @@ workPanel.onclick = (event)=>{
     }
 
     event.target.classList.add('active');
-
-    //Сохраняет номер активного элемента
-    for (let i = 0; i < workPanel.children.length; i++) {
-        
-        if(workPanel.children[i].classList.contains('active')){
-
-            idParagraf = i
-            break;
-            
-        }     
-    }
 }
 
 workPanel.onkeydown = (event)=>{
+
+    setTimeout(()=>{
+
+      if(workPanel.children.length == 2){
+
+        workPanel.classList.remove('active');
+
+        workPanel.children[1].classList.add('active');
+
+      }
+    }, 10)
+
     if(event.code == 'Enter'){
 
         for (let i = 0; i < workPanel.children.length; i++) {
@@ -220,12 +219,123 @@ workPanel.onkeydown = (event)=>{
 
                 }, 100)
 
-                //Сохраняет номер активного элемента
-                idParagraf = i;
+                break;
+            }
+        }
+    }
+
+    if(event.code == 'ArrowUp'){
+
+        if(workPanel.children.length == 2){
+
+            setTimeout(()=>{
+
+                workPanel.children[0].classList.add('active');
+                workPanel.children[1].classList.remove('active');
+
+            }, 11);
+
+        } else {
+
+            for (let i = 0; i < workPanel.children.length; i++) {
+
+                if(workPanel.children[i].classList.contains('active') && i == 0){
+    
+                    break;
+    
+                } else if(workPanel.children[i].classList.contains('active')){
+    
+                    workPanel.children[i].classList.remove('active');
+    
+                    setTimeout(()=>{
+    
+                        workPanel.children[i - 1].classList.add('active');
+    
+                    }, 100)
+    
+                    break;
+                }
+            }
+        }
+    }
+
+    if(event.code == 'ArrowDown'){
+
+        for (let i = 0; i < workPanel.children.length; i++) {
+
+            if(workPanel.children[i].classList.contains('active') && i == workPanel.children.length - 1){
+
+                break;
+
+            } else if(workPanel.children[i].classList.contains('active')){
+
+                workPanel.children[i].classList.remove('active');
+
+                setTimeout(()=>{
+
+                    workPanel.children[i + 1].classList.add('active');
+
+                }, 100)
 
                 break;
             }
         }
-
     }
+}
+
+//Функция выравнивания текста
+function contentStyles(value, item){
+
+    //value - значение, которое будет измененио
+    //item - элемент, который будет изменён
+
+    switch (value) {
+
+        case 'left':
+            
+            item.classList.toggle('align-left');
+
+            break;
+
+        case 'right':
+
+            item.classList.toggle('align-right');
+
+            break;
+
+        case 'justify':
+
+            item.classList.toggle('align-justify');
+
+            break;
+
+        case 'center':
+
+            item.classList.toggle('align-center');
+
+            break;
+
+        case 'weight':
+
+            item.classList.toggle('font-weight');
+
+            break;
+
+        case 'style':
+
+            item.classList.toggle('font-style');
+
+            break;
+
+        case 'decoration':
+
+            item.classList.toggle('text-decoration');
+
+            break;
+
+        default:
+
+            break;
+    }
+
 }
